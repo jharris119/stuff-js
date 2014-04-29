@@ -3,13 +3,28 @@
  */
 
 _.mixin({
-	
-    /**
-     * @param {Any} num The thing we're testing for integer-ship.
-     * @return {boolean} true if num is an integer (between Number.MIN_VALUE and
-     * 	Number.MAX_VALUE) and false otherwise
-     */
-    isInteger: function(num) {
-        return _.isFinite(num) && parseInt(num, undefined) == num;
-    }
+	/**
+	 * Keep calling func until it returns a non-undefined, non-null value.
+	 *
+	 * @param {function} func - the function to call
+	 * @param {object} context - the "this" object
+	 * @param {...*} args - arguments to func
+	 */
+	tryAgain: function(func, context, args) {
+		var res;
+		while (res === undefined || res === null) {
+			res = func.apply(context, Array.prototype.slice.call(arguments, 2));
+		}
+		return res;
+	},
+
+  /**
+   * A better typeof operator-function thing.
+   *
+   * @param {object} mystery object
+   * @return {string} the name of the object's constructor
+   */
+  typeof: function(obj) {
+    return obj.constructor.toString().match(/function (\w+)\(.*/)[1];
+  },
 });
