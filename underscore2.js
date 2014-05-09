@@ -31,9 +31,10 @@ _.mixin({
   	if (obj === undefined) { return 'undefined' };
 
   	if (regexMatch = obj.constructor.toString().match(/function (\w+)\(.*/)) {
-  		return regexMatch[1];
+  	  return regexMatch[1];
   	}
   	else {
-  		return "anonymous function";
+  	  return "anonymous function";
+  	}
   },
 });
