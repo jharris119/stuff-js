@@ -25,6 +25,15 @@ _.mixin({
    * @return {string} the name of the object's constructor
    */
   typeof: function(obj) {
-    return obj.constructor.toString().match(/function (\w+)\(.*/)[1];
+  	var regexMatch;
+
+  	if (obj === null) { return 'null'; }
+  	if (obj === undefined) { return 'undefined' };
+
+  	if (regexMatch = obj.constructor.toString().match(/function (\w+)\(.*/)) {
+  		return regexMatch[1];
+  	}
+  	else {
+  		return "anonymous function";
   },
 });
