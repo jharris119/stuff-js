@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>disjointset.js Test Runner</title>
+
+  <link rel="shortcut icon" type="image/png" href="../js/lib/jasmine-2.0.0/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="../js/lib/jasmine-2.0.0/jasmine.css">
+
+  <script type="text/javascript">
+      var require = {
+            paths: {
+                "jasmine": "../js/lib/jasmine-2.0.0",
+                "lodash": "../js/lib/lodash",
+                "js": "../js"
+            }
+      }
+  </script>
+
+  <script type="text/javascript" src="../js/lib/jasmine-2.0.0/jasmine.js"></script>
+  <script type="text/javascript" src="../js/lib/jasmine-2.0.0/jasmine-html.js"></script>
+  <script type="text/javascript" src="../js/lib/jasmine-2.0.0/boot.js"></script>
+
+  <script type="text/javascript" src="../js/lib/require/require.js"></script>
+
+  <script type="text/javascript">
+      window.onload = function() {};
+      require(['spec/disjointset.spec'], function() {
+            window.executeTests();
+      });
+  </script>
+</head>
+<body>
+</body>
+</html>
