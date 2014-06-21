@@ -171,8 +171,8 @@
   };
 
   window.executeTests = function() {
-  	htmlReporter.initialize();
-  	env.execute();
+    htmlReporter.initialize();
+    env.execute();
   };
 
   /**
