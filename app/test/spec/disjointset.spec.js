@@ -1,93 +1,82 @@
 define(['js/disjointset'], function(DisjointSet) {
     describe(
-        "We should be able to add singleton elements to the disjoint set -- ",
+        "Disjoint Set",
         function() {
-            var disjointSet = new DisjointSet();
+            var disjointset;
+            var testObj = {
+                word: 'six',
+                number: 6
+            };
+
+            beforeEach(function() {
+                disjointset = new DisjointSet();
+
+                disjointset.add('foo');
+                disjointset.add('bar');
+                disjointset.add('buzz');
+                disjointset.add('quux');
+                disjointset.add('blerg');
+                disjointset.add('zop');
+                disjointset.add(testObj);
+
+                disjointset.union('foo', 'blerg');
+                disjointset.union('bar', 'quux');
+                disjointset.union('zop', 'quux');
+            });
+
             it(
                 "should be initially empty",
                 function() {
-                    expect(disjointSet.size()).toBe(0);
+                    expect((new DisjointSet()).size()).toBe(0);
                 }
             );
 
             it(
                 "should add new elements as singleton sets",
                 function() {
-                    disjointSet.add('foo');
-                    disjointSet.add('bar');
-                    disjointSet.add('buzz');
+                    var tmp = new DisjointSet();
+                    tmp.add('Mickey').add('Goofy').add('Pluto');
 
-                    expect(disjointSet.size()).toBe(3);
-                    expect(disjointSet.count()).toBe(3);
+                    expect(tmp.size()).toBe(3);
+                    expect(tmp.count()).toBe(3);
 
-                    // expect(disjointSet.find('foo')).not.toEqual(disjointSet.find('bar'));
-                    // expect(disjointSet.find('bar')).not.toEqual(disjointSet.find('buzz'));
-                    // expect(disjointSet.find('buzz')).not.toEqual(disjointSet.find('foo'));
-                }
-            );
-        }
-    );
-
-    describe(
-        "We need to get the representative for an element in the disjoint set -- ",
-        function() {
-            var disjointSet = new DisjointSet();
-
-            var testObj = {
-                word: 'six',
-                number: 6
-            };
-
-            disjointSet.add('foo');
-            disjointSet.add('bar');
-            disjointSet.add('buzz');
-            disjointSet.add('quux');
-            disjointSet.add('blerg');
-            disjointSet.add('zop');
-            disjointSet.add(testObj);
-
-            it(
-                "should return singleton objects correctly",
-                function() {
-                    expect(disjointSet.find('buzz')).toBe('buzz');
-                    expect(disjointSet.find(testObj)).toBe(testObj);
+                    expect(tmp.find('Mickey')).not.toEqual(tmp.find('Goofy'));
+                    expect(tmp.find('Goofy')).not.toEqual(tmp.find('Pluto'));
+                    expect(tmp.find('Pluto')).not.toEqual(tmp.find('Mickey'));
                 }
             );
 
             it(
-                "should be undefined if you 'find' an object not in the set",
+                "should find and return the representative for an element",
                 function() {
-                    expect(disjointSet.find('nope')).toBeUndefined();
+                    expect(disjointset.find('buzz')).toBe('buzz');
+                    expect(disjointset.find(testObj)).toBe(testObj);
+
+                    expect(disjointset.find('foo')).toEqual(disjointset.find('blerg'));
+                    expect(disjointset.find('bar')).toEqual(disjointset.find('zop'));
+
+                    expect(disjointset.find('not here')).toBeUndefined();
                 }
             );
-        }
-    );
-
-    describe(
-        "Disjoint sets can be merged -- ",
-        function() {
-            var disjointSet = new DisjointSet();
-
-            var testObj = {
-                word: 'six',
-                number: 6
-            };
-
-            disjointSet.add('foo');
-            disjointSet.add('bar');
-            disjointSet.add('buzz');
-            disjointSet.add('quux');
-            disjointSet.add('blerg');
-            disjointSet.add('zop');
-            disjointSet.add(testObj);
 
             it(
-                "should merge two sets correctly",
+                "should merge disjoint sets correctly",
                 function() {
-                    disjointSet.union('buzz', 'bar');
-                    expect(disjointSet.find('buzz')).toEqual(disjointSet.find('bar'));
+                    // precondition
+                    expect(disjointset.find(testObj)).not.toEqual(disjointset.find('blerg'));
+
+                    disjointset.merge(testObj, 'blerg');
+
+                    // postcondition
+                    expect(disjointset.find(testObj)).toEqual(disjointset.find('blerg'));
+
+                    // precondition
+                    expect(disjointset.find('zop')).not.toEqual(disjointset.find('foo'));
+
+                    disjointset.merge('zop', 'foo');
+                    expect(disjointset.find('zop')).toEqual(disjointset.find(testObj));
                 }
-            );
+            )
         }
     );
 });
