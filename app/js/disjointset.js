@@ -153,5 +153,5 @@ define(['lodash'], function(_) {
         }
     };
 
-	return DisjointSet;
+    return DisjointSet;
 });
