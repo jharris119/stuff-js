@@ -1,3 +1,7 @@
+/**
+ * @author jay harris
+ */
+
 define(['lodash'], function(_) {
     var _Node = function(element) {
         this.element = element;
@@ -10,7 +14,7 @@ define(['lodash'], function(_) {
     // a node to return if we're looking for a node that's not in this DisjointSet
     var defaultNode = new _Node(undefined);
 
-    return function() {
+    var DisjointSet = function() {
         var forest = [], _forest = _(forest);
         var elements = 0;
         var sets = 0;
@@ -148,4 +152,6 @@ define(['lodash'], function(_) {
             return sets;
         }
     };
+
+	return DisjointSet;
 });

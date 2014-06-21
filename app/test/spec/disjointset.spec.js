@@ -64,17 +64,20 @@ define(['js/disjointset'], function(DisjointSet) {
                 function() {
                     // precondition
                     expect(disjointset.find(testObj)).not.toEqual(disjointset.find('blerg'));
+                    expect(disjointset.count()).toBe(4);
 
                     disjointset.merge(testObj, 'blerg');
 
                     // postcondition
                     expect(disjointset.find(testObj)).toEqual(disjointset.find('blerg'));
+                    expect(disjointset.count()).toBe(3);
 
                     // precondition
                     expect(disjointset.find('zop')).not.toEqual(disjointset.find('foo'));
 
                     disjointset.merge('zop', 'foo');
                     expect(disjointset.find('zop')).toEqual(disjointset.find(testObj));
+                    expect(disjointset.count()).toBe(2);
                 }
             )
         }

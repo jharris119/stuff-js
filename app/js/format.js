@@ -1,5 +1,5 @@
 /**
- * @author Jay Harris
+ * @author jay harris
  */
 
 (function() {
